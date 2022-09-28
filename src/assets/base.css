@@ -14,6 +14,7 @@
   --vt-c-grey-light: #D8D8D8;
   --main-background-color: #fffae6;
   --text-success: #1BD97B;
+  --text-success-light: rgba(27, 217, 123, 0.1);
   --text-failed: #ff8a00;
   --filter-success: invert(74%) sepia(21%) saturate(1629%) hue-rotate(93deg) brightness(92%) contrast(89%);
   --filter-failed: invert(54%) sepia(47%) saturate(1329%) hue-rotate(358deg) brightness(98%) contrast(110%);
@@ -65,6 +66,7 @@
   --margin-gap-half: 8px;
   --text-title: 2em;
   --text-subtitle: 1.5em;
+  --text-button: 1.125em;
   --text-detail: 0.875em;
 }
 
@@ -97,7 +99,7 @@ body {
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'InterUI-Regular', sans-serif;
   font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

@@ -58,8 +58,8 @@ const isBold = ref(props.isBold ? "bold" : "");
 const isColor = ref(props.isColor);
 
 const textClass = () => {
-  if (props.isTitle) return "text-title";
-  else if (props.isSubTitle) return "text-subtitle";
+  if (props.isTitle) return "text-title font-family-montserrat";
+  else if (props.isSubTitle) return "text-subtitle font-family-montserrat";
   else if (props.isDetail) return "text-detail";
   else return "";
 };

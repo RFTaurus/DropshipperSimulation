@@ -92,7 +92,7 @@ Util
 }
 
 .shadow {
-  box-shadow: 0 4px 12px 0 var(--shadow-orange);
+  box-shadow: 0 8px 24px 6px var(--shadow-orange);
 }
 
 /* 
@@ -147,6 +147,14 @@ Layout Shift
 
 .pa-8 {
   padding: 2rem;
+}
+
+.pa-12 {
+  padding: 3rem;
+}
+
+.pa-16 {
+  padding: 4rem;
 }
 
 .pt-1 {
@@ -437,6 +445,96 @@ Layout Shift
   margin-bottom: 2rem;
 }
 
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.my-16 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.mx-6 {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.mx-7 {
+  margin-left: 1.75rem;
+  margin-right: 1.75rem;
+}
+
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
 .container {
   width: 100%;
   max-width: 96%;
@@ -576,6 +674,7 @@ Responsive Tablet
     width: 100%;
     max-width: 100%;
     margin: 0% auto;
+    padding: var(--padding-gap);
   }
   
   .col-md-1 {
@@ -695,7 +794,7 @@ Responsive Desktop
 @media (min-width: 1024px) {
   .container {
     width: 100%;
-    max-width: 100%;
+    max-width: 1100px;
     margin: 0% auto;
   }
 

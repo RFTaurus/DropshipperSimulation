@@ -16,8 +16,24 @@ a,
   transition: 0.4s;
 }
 
+.font-family-montserrat {
+  font-family: "Montserrat" , sans-serif;
+}
+
+.font-family-interui-medium {
+  font-family: "InterUI-Medium";
+}
+
+.font-family-interui-bold {
+  font-family: "InterUI-bold";
+}
+
 .bg-white {
   background-color: var(--vt-c-white);
+}
+
+.bg-primary-orange {
+  background-color: var(--primary-text-orange);
 }
 
 .text-title {
@@ -28,12 +44,28 @@ a,
   font-size: var(--text-subtitle);
 }
 
+.text-button {
+  font-size: var(--text-button);
+}
+
 .text-detail {
   font-size: var(--text-detail);
 }
 
 .primary-orange {
   color: var(--primary-text-orange);
+}
+
+.white {
+  color: var(--vt-c-white);
+}
+
+.white-soft {
+  color: var(--vt-c-white-soft);
+}
+
+.white-mute {
+  color: var(--vt-c-white-mute);
 }
 
 .black {
