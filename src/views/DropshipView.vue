@@ -2,7 +2,7 @@
   <div class="container position-center">
     <div class="bg-white border-quarter shadow my-4 pa-8">
       <div class="row align-items-stretch justify-content-space-between">
-        <div class="col-12 col-md-7 col-lg-9">
+        <div class="col-12 col-md-7 col-lg-8">
           <FinalSection
             v-if="getDeliveryData.currentStep === 3"
             @generate-order-id="getOrderId"
@@ -24,7 +24,7 @@
             @btn-action="backTo"
           />
         </div>
-        <div class="col-12 col-md-5 col-lg-3 border-section">
+        <div class="col-12 col-md-5 col-lg-4 border-section">
           <div class="row align-items-start tablet-gap">
             <div class="col-12">
               <TextBase
