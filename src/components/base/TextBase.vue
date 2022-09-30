@@ -1,5 +1,6 @@
 <template>
   <div class="d-contents">
+    <hr v-if="isMiniDivider" class="divider mini my-4" />
     <slot v-if="isCustomSlot" />
     <p
       v-else
@@ -8,7 +9,6 @@
       {{ props.text }}
     </p>
     <hr v-if="isTitle" class="divider" />
-    <hr v-if="isMiniDivider" class="divider mini my-4" />
   </div>
 </template>
 

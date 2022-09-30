@@ -2,7 +2,12 @@
   <div class="d-contents">
     <label class="checkbox-container text-detail black-soft">
       {{ label }}
-      <input type="checkbox" :value="modelValue" @input="updateValue" />
+      <input
+        type="checkbox"
+        :value="modelValue"
+        :checked="modelValue"
+        @input="updateValue"
+      />
       <span class="checkmark"></span>
     </label>
   </div>
@@ -22,7 +27,8 @@ defineProps({
 });
 
 const updateValue = (event) => {
-  emit("update:modelValue", event.target.value);
+  let booleanValue = event.target.value === "true";
+  return emit("update:modelValue", !booleanValue);
 };
 </script>
 

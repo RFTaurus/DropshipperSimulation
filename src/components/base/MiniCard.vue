@@ -9,11 +9,7 @@
       <p class="bold">
         {{ text }}
       </p>
-      <IconValidation
-        :value="modelValue"
-        :is-input-valid="isActive"
-        :top="top"
-      />
+      <IconValidation :value="isActive" :is-input-valid="isActive" :top="top" />
     </div>
   </div>
 </template>
@@ -66,10 +62,19 @@ const isActive = computed(() => (props.isActive ? "active" : ""));
   width: 100%;
   max-width: 240px;
   height: auto;
+  transition: 0.5s;
 }
 
 .mini-card.active {
   background-color: var(--text-success-light);
   border: solid 2px var(--text-success);
+  transition: 0.5s;
+}
+
+@media (min-width: 1024px) {
+  .mini-card {
+    width: 100%;
+    max-width: 320px;
+  }
 }
 </style>
