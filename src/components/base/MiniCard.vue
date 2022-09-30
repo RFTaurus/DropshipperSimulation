@@ -1,7 +1,7 @@
 <template>
   <div class="d-contents">
     <div
-      :class="`mini-card ${textType} black-soft font-family-interui-medium pa-2 px-4 justify-content-center ${isActive}`"
+      :class="`mini-card ${textType} black-soft font-family-interui-medium pointer pa-2 px-4 justify-content-center ${isActive}`"
     >
       <p v-if="isCurrency" class="bold">
         {{ formatCurrency(props.currency) }} {{ props.unitText }}

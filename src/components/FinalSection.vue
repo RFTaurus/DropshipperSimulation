@@ -23,7 +23,7 @@
             <TextBase
               :is-detail="true"
               :is-color="'black-mute'"
-              :text="`Your order will be delivered today with GO-SEND`"
+              :text="shipmentText"
             />
           </div>
           <div class="my-12">
@@ -55,6 +55,13 @@ const orderId = computed(() => {
   const id = randomString();
   emit("generate-order-id", id);
   return `Order ID : ${id}`;
+});
+
+const shipmentText = computed(() => {
+  if (getDeliveryData.value.shipmentTypes.name) {
+    return `Your order will be delivered today with ${getDeliveryData.value.shipmentTypes.name}`;
+  }
+  return `Your order will be delivered today with GO-SEND`;
 });
 </script>
 
