@@ -92,7 +92,6 @@ const selectShipmentMethod = (shipment) => {
 
 const selectPaymentMethod = (payment) => {
   selectedPayment.value = payment;
-  console.log("selectedPayment.value : ", selectedPayment.value);
   emit("update-payment-method", selectedPayment.value);
 };
 </script>

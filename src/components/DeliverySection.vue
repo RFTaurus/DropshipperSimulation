@@ -2,7 +2,7 @@
   <div class="d-contents">
     <BackNavigation :text="'Back to cart'" @click="$emit('btn-action')" />
     <div class="row align-items-center justify-content-space-between">
-      <div class="col-12 col-lg-9">
+      <div class="col-12 col-lg-8">
         <TextBase
           :is-title="true"
           :is-bold="true"
@@ -10,7 +10,7 @@
           :text="'Delivery details'"
         />
       </div>
-      <div class="col-12 col-lg-3">
+      <div class="col-12 col-lg-4">
         <InputCheckbox
           v-model="isDropshipperValue"
           :label="'Send as dropshipper'"
