@@ -1,6 +1,6 @@
 # DropShipperSimulation
 
-This template should help get you started developing with Vue 3 in Vite.
+This is A Dropshipper simulation using Vue 3. This will be simulation for fill and check the form Dropshipper data. this project doesn't use any state management system and only use my own state management system that I build using locastorage as the baselogic.
 
 ## Recommended IDE Setup
 
