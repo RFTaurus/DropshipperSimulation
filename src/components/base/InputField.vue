@@ -1,8 +1,13 @@
 <template>
   <div class="d-contents">
-    <div :class="`input-wrapper ${borderValidationColor}`">
+    <div
+      :class="`input-wrapper ${borderValidationColor} ${
+        !isDropshipper ? 'is-disabled' : ''
+      }`"
+    >
       <div v-if="isTextArea" class="input-field">
         <textarea
+          :disabled="!isDropshipper"
           :value="modelValue"
           class="black font-family-interui-bold bold"
           :id="id"
@@ -10,6 +15,7 @@
           :placeholder="placeholder"
           :rows="rows"
           :cols="cols"
+          maxlength="120"
           @input="updateValue"
         ></textarea>
         <label
@@ -21,13 +27,17 @@
       </div>
       <div v-else class="input-field">
         <input
+          :disabled="!isDropshipper"
           :value="modelValue"
           class="black font-family-interui-bold bold"
           :id="id"
           :type="type"
           :name="id"
           :placeholder="placeholder"
+          :max="type === 'number' ? modelValue : ''"
+          :min="type === 'number' ? modelValue : ''"
           @input="updateValue"
+          @keypress="checkNumber($event)"
         />
         <label
           :for="id"
@@ -43,8 +53,12 @@
 <script setup>
 import { computed } from "vue";
 import IconValidation from "./IconValidation.vue";
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "update:isInputValid"]);
 const props = defineProps({
+  isDropshipper: {
+    type: Boolean,
+    default: false,
+  },
   modelValue: {
     type: String,
     default: "",
@@ -67,7 +81,7 @@ const props = defineProps({
   },
   rows: {
     type: Number,
-    default: 8,
+    default: 5,
   },
   cols: {
     type: Number,
@@ -91,7 +105,21 @@ const borderValidationColor = computed(() =>
   !props.modelValue ? "white-mute" : props.isInputValid ? "success" : "failed"
 );
 
+const checkNumber = (event) => {
+  if (props.type === "number") {
+    const evt = event ? event : window.event;
+    const charCode = evt.which ? evt.which : evt.keyCode;
+    if (charCode === 46 || charCode === 101) {
+      evt.preventDefault();
+    } else {
+      return true;
+    }
+  }
+};
+
 const updateValue = (event) => {
+  const inputValidation = !!event.target.value;
+  emit("update:isInputValid", inputValidation);
   emit("update:modelValue", event.target.value);
 };
 </script>
@@ -109,6 +137,12 @@ input {
   padding: 8px 8px;
   padding-top: 0px;
   border: solid 2px var(--vt-c-white-mute);
+  transition: 0.5s;
+}
+
+.input-wrapper.is-disabled {
+  background-color: var(--vt-c-white-mute);
+  transition: 0.5s;
 }
 
 .input-wrapper ::-webkit-input-placeholder {
@@ -135,6 +169,7 @@ input {
   border: none;
   -webkit-appearance: none;
   cursor: text;
+  background-color: none;
 }
 
 textarea:placeholder-shown + label,

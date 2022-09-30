@@ -1,5 +1,15 @@
 <script setup>
+import { onMounted, ref } from "vue";
 import { RouterView } from "vue-router";
+import { getDeliveryFormStructure } from "./model/deliveryData";
+import { PSEUDOLOCAL_DATABASE_PATH } from "./utils/constant";
+import { initDataPath } from "./store/pseudolocalDatabase";
+
+const formDataPath = ref(PSEUDOLOCAL_DATABASE_PATH.dropshipData);
+
+onMounted(() => {
+  initDataPath(formDataPath.value, getDeliveryFormStructure());
+});
 </script>
 
 <template>
