@@ -11,21 +11,59 @@
         />
       </div>
       <div class="col-12 col-lg-3">
-        <InputCheckbox v-model="isDropshipper" :label="'Send as dropshipper'" />
+        <InputCheckbox
+          v-model="isDropshipperValue"
+          :label="'Send as dropshipper'"
+        />
       </div>
     </div>
-    <FormSection />
+    <FormSection
+      :is-dropshipper="isDropshipperValue"
+      :form-input="formInput"
+      :form-validation="formValidation"
+      @update-form-input="updateFormInput"
+    />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import InputCheckbox from "./base/InputCheckbox.vue";
 import TextBase from "./base/TextBase.vue";
 import FormSection from "./FormSection.vue";
 import BackNavigation from "./base/BackNavigation.vue";
 
-const isDropshipper = ref(false);
+const emit = defineEmits([
+  "update-is-dropshipper",
+  "update-form-input",
+  "update-form-input-validation",
+]);
+const props = defineProps({
+  formInput: {
+    type: Object,
+    default: () => {},
+  },
+  formValidation: {
+    type: Object,
+    default: () => {},
+  },
+  isDropshipper: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const isDropshipperValue = ref(props.isDropshipper);
+
+watch(isDropshipperValue, (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    emit("update-is-dropshipper", newValue);
+  }
+});
+
+const updateFormInput = (formData) => {
+  emit("update-form-input", formData);
+};
 </script>
 
 <style lang="css" scoped>

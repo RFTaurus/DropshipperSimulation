@@ -12,31 +12,18 @@
       </div>
     </div>
     <div class="row align-items-stretch mb-8">
-      <div class="col-12 col-md-6 col-lg-3 my-2 mini-card-gap">
+      <div
+        v-for="shipment in shipmentTypes"
+        :key="shipment.id"
+        class="col-12 col-md-6 col-lg-4 my-2 mini-card-gap"
+      >
         <MiniCard
-          :model-value="'GO-SEND'"
-          :text="'GO-SEND'"
+          :model-value="shipment.name"
+          :text="shipment.name"
           :is-currency="true"
-          :currency="15000"
-          :is-active="true"
-        />
-      </div>
-      <div class="col-12 col-md-6 col-lg-3 my-2 mini-card-gap">
-        <MiniCard
-          :model-value="''"
-          :text="'JNE'"
-          :is-currency="true"
-          :currency="9000"
-          :is-active="false"
-        />
-      </div>
-      <div class="col-12 col-md-6 col-lg-3 my-2 mini-card-gap">
-        <MiniCard
-          :model-value="''"
-          :text="'Personal Courier'"
-          :is-currency="true"
-          :currency="29000"
-          :is-active="false"
+          :currency="shipment.cost"
+          :is-active="selectedShipment.id === shipment.id"
+          @click="selectShipmentMethod(shipment)"
         />
       </div>
     </div>
@@ -51,30 +38,20 @@
       </div>
     </div>
     <div class="row align-items-stretch mb-8">
-      <div class="col-12 col-md-6 col-lg-3 my-2 mini-card-gap">
+      <div
+        v-for="payment in paymentTypes"
+        :key="payment.id"
+        class="col-12 col-md-6 col-lg-4 my-2 mini-card-gap"
+      >
         <MiniCard
-          :model-value="''"
-          :text="'e-wallet'"
-          :is-currency="true"
-          :currency="1500000"
-          :unit-text="'left'"
-          :is-active="false"
-        />
-      </div>
-      <div class="col-12 col-md-6 col-lg-3 my-2 mini-card-gap">
-        <MiniCard
-          :model-value="''"
-          :text="'Bank Transfer'"
-          :is-active="false"
-          :top="'var(--gap-half)'"
-        />
-      </div>
-      <div class="col-12 col-md-6 col-lg-3 my-2 mini-card-gap">
-        <MiniCard
-          :model-value="'virtual account'"
-          :text="'Virtual Account'"
-          :is-active="true"
-          :top="'var(--gap-quarter)'"
+          :model-value="payment.name"
+          :text="payment.name"
+          :is-currency="payment.isCurrency"
+          :currency="payment.balance"
+          :unit-text="payment.unitText"
+          :is-active="selectedPayment.id === payment.id"
+          :top="topValue"
+          @click="selectPaymentMethod(payment)"
         />
       </div>
     </div>
@@ -82,9 +59,42 @@
 </template>
 
 <script setup>
+import { computed, ref } from "vue";
+import { PSEUDOLOCAL_DATABASE_PATH } from "../utils/constant";
+import { getDataPath } from "../store/pseudolocalDatabase";
+import { SHIPMENT_TYPES, PAYMENT_TYPES } from "../utils/constant";
 import TextBase from "./base/TextBase.vue";
 import MiniCard from "./base/MiniCard.vue";
 import BackNavigation from "./base/BackNavigation.vue";
+
+const emit = defineEmits(["update-payment-method", "update-shipment-method"]);
+const formDataPath = ref(PSEUDOLOCAL_DATABASE_PATH.dropshipData);
+const shipmentTypes = ref(SHIPMENT_TYPES);
+const getDeliveryData = ref(getDataPath(formDataPath.value));
+const selectedShipment = ref(getDeliveryData.value.shipmentTypes);
+
+const paymentTypes = ref(PAYMENT_TYPES);
+const selectedPayment = ref(getDeliveryData.value.paymentTypes);
+
+const topValue = computed(() => {
+  if (selectedPayment.value.id === "bankTransfer") {
+    return "var(--gap-quarter)";
+  } else if (selectedPayment.value.id === "virtualAccount") {
+    return "var(--gap-quarter)";
+  }
+  return "var(--gap)";
+});
+
+const selectShipmentMethod = (shipment) => {
+  selectedShipment.value = shipment;
+  emit("update-shipment-method", selectedShipment.value);
+};
+
+const selectPaymentMethod = (payment) => {
+  selectedPayment.value = payment;
+  console.log("selectedPayment.value : ", selectedPayment.value);
+  emit("update-payment-method", selectedPayment.value);
+};
 </script>
 
 <style lang="css" scoped>

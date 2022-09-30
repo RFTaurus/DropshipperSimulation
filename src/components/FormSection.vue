@@ -5,28 +5,37 @@
         <div class="row align-items-start">
           <div class="col-12 my-2">
             <InputField
-              v-model="name"
-              :id="'name'"
-              :label="'Name'"
-              :is-input-valid="isValidName"
+              v-model="formData.email"
+              :id="'email'"
+              :label="'Email'"
+              :is-input-valid="formDataValidation.isValidEmail"
+              :is-dropshipper="isDropshipper"
             />
           </div>
           <div class="col-12 my-2">
             <InputField
-              v-model="phone"
+              v-model="formData.phone"
+              :type="'number'"
               :id="'phone'"
               :label="'Phone Number'"
-              :is-input-valid="isValidPhone"
+              :is-input-valid="formDataValidation.isValidPhone"
+              :is-dropshipper="isDropshipper"
             />
           </div>
           <div class="col-12 my-2">
             <InputField
-              v-model="deliveryAddress"
+              v-model="formData.deliveryAddress"
               :id="'deliveryAddress'"
               :label="'Delivery Address'"
               :is-text-area="true"
-              :is-input-valid="isValidDeliveryAddress"
+              :is-input-valid="formDataValidation.isValidAddress"
+              :is-dropshipper="isDropshipper"
             />
+            <small class="text-right"
+              >Max Length:
+              <strong>{{ formData.deliveryAddress?.length || 0 }}</strong
+              >/120</small
+            >
           </div>
         </div>
       </div>
@@ -34,18 +43,21 @@
         <div class="row align-items-start">
           <div class="col-12 my-2">
             <InputField
-              v-model="dropshipperName"
+              v-model="formData.dropshipperName"
               :id="'dropshipperName'"
               :label="'Dropshipper Name'"
-              :is-input-valid="isValidDropshipperName"
+              :is-input-valid="formDataValidation.isValidDropshipperName"
+              :is-dropshipper="isDropshipper"
             />
           </div>
           <div class="col-12 my-2">
             <InputField
-              v-model="dropshipperPhoneNumber"
+              v-model="formData.dropshipperPhone"
+              :type="'number'"
               :id="'dropshipperPhoneNumber'"
               :label="'Dropshipper Phone Number'"
-              :is-input-valid="isValidDropshipperPhoneNumber"
+              :is-input-valid="formDataValidation.isValidDropshipperPhone"
+              :is-dropshipper="isDropshipper"
             />
           </div>
         </div>
@@ -55,19 +67,34 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import InputField from "./base/InputField.vue";
+const emit = defineEmits(["update-form-input", "update-form-input-validation"]);
+const props = defineProps({
+  isDropshipper: {
+    type: Boolean,
+    default: false,
+  },
+  formInput: {
+    type: Object,
+    default: () => {},
+  },
+  formValidation: {
+    type: Object,
+    default: () => {},
+  },
+});
 
-let name = ref("");
-let isValidName = ref(true);
-let phone = ref("");
-let isValidPhone = ref(false);
-let deliveryAddress = ref("");
-let isValidDeliveryAddress = ref(false);
-let dropshipperName = ref("");
-let isValidDropshipperName = ref(false);
-let dropshipperPhoneNumber = ref("");
-let isValidDropshipperPhoneNumber = ref(false);
+const formData = ref(props.formInput);
+const formDataValidation = ref(props.formValidation);
+const searchTimeout = ref(null);
+
+watch(formData.value, (newValue) => {
+  clearTimeout(searchTimeout.value);
+  searchTimeout.value = setTimeout(() => {
+    emit("update-form-input", newValue);
+  }, 1000);
+});
 </script>
 
 <style lang="css" scoped>

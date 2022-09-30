@@ -16,7 +16,7 @@
               :is-detail="true"
               :is-bold="true"
               :is-color="'black'"
-              :text="`Order ID : ${randomString()}`"
+              :text="`Order ID : ${orderId}`"
             />
           </div>
           <div>
@@ -36,11 +36,26 @@
 </template>
 
 <script setup>
+import { computed, ref } from "vue";
+import { PSEUDOLOCAL_DATABASE_PATH } from "../utils/constant";
+import { getDataPath } from "../store/pseudolocalDatabase";
 import { randomString } from "../utils/common";
 import TextBase from "./base/TextBase.vue";
 import BackNavigation from "./base/BackNavigation.vue";
 
-defineEmits(["btn-action"]);
+const emit = defineEmits(["btn-action", "generate-order-id"]);
+
+const formDataPath = ref(PSEUDOLOCAL_DATABASE_PATH.dropshipData);
+const getDeliveryData = ref(getDataPath(formDataPath.value));
+
+const orderId = computed(() => {
+  if (getDeliveryData.value.orderId) {
+    return getDeliveryData.value.orderId;
+  }
+  const id = randomString();
+  emit("generate-order-id", id);
+  return `Order ID : ${id}`;
+});
 </script>
 
 <style lang="css" scoped>
